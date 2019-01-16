@@ -5,7 +5,7 @@ Convert Xmind file to Excel testcases file.
 
 ```shell
 1、运行 app.py
-2、通过访问 localhost:5000/index 访问
+2、通过 localhost:5000/index 访问
 ```
 ## xmind examples
 ```shell
