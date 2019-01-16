@@ -31,7 +31,7 @@ def index():
         excel_file_name = xmind_file_name.rsplit(".", 1)[0] + '.xls'
         # 调用方法将xmind文件转换为excel文件
         get_xmind_content(save_path, os.path.join(upload_path, excel_file_name))
-        res['file_url'] = '/download/' + excel_file_name,
+        res['file_url'] = os.path.join('/download/', excel_file_name)
         res['sucess_msg'] = xmind_file_name + ' 转换成功，点击下载用例！'
         return render_template('index.html', res = res)
     return render_template('index.html', res = {})
