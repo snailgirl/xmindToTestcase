@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, send_from_directory,session,make_response
 from src.main import *
 import os
+import time
 
 upload_path = 'upload'  # 文件上传下载路径
 app = Flask(__name__)
@@ -47,8 +48,14 @@ def download(filename):
 # 删除upload下所有的文件(除__init__.py)
 def del_files():
     for file_name in os.listdir(upload_path):
+        del_files_path = os.path.join(upload_path, file_name)
         if file_name not in ['__init__.py']:
-            os.remove(os.path.join(upload_path, file_name))
+            # 获取文件的创建日期
+            ctime = time.localtime(os.stat(del_files_path).st_ctime)
+            cdate = time.strftime("%Y-%m-%d", ctime)
+            # 获取文件创建日期小于当前日期
+            if cdate <= time.strftime("%Y-%m-%d"):
+                os.remove(del_files_path)
 
 if __name__ == '__main__':
     app.run()
