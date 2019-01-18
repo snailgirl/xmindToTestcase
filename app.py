@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, send_from_directory,session,m
 from src.main import *
 import os
 import time
+import urllib
 
 upload_path = 'upload'  # 文件上传下载路径
 app = Flask(__name__)
@@ -39,11 +40,12 @@ def index():
 
 @app.route('/download/<filename>',methods=['GET'])
 def download(filename):
+    file_name = urllib.request.unquote(filename, encoding='utf-8', errors='replace')
     # 下载的文件路径
-    excel_file_path = os.path.join(upload_path, filename)
+    excel_file_path = os.path.join(upload_path, file_name)
     if request.method == "GET":
         if os.path.isfile(excel_file_path):
-            return send_from_directory(upload_path, filename, as_attachment=True)
+            return send_from_directory(upload_path, file_name, as_attachment=True)
 
 # 删除upload下所有的文件(除__init__.py)
 def del_files():
@@ -54,7 +56,7 @@ def del_files():
             ctime = time.localtime(os.stat(del_files_path).st_ctime)
             cdate = time.strftime("%Y-%m-%d", ctime)
             # 获取文件创建日期小于当前日期
-            if cdate <= time.strftime("%Y-%m-%d"):
+            if cdate < time.strftime("%Y-%m-%d"):
                 os.remove(del_files_path)
 
 if __name__ == '__main__':
