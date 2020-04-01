@@ -40,6 +40,12 @@ class WriteExcel():
         outline_wooksheek = self.wookbook.add_sheet('测试大纲', cell_overwrite_ok='True')  # 测试大纲
         for i in range(13):
             outline_wooksheek.col(i).width = (13 * 367)
+            if i in [6, 7]:
+                outline_wooksheek.col(i).width = (25 * 500)
+            if i in [7]:
+                outline_wooksheek.col(i).width = (20 * 400)
+            if i in [4, 8, 9, 10, 11, 12]:
+                outline_wooksheek.col(i).width = (13 * 200)
         outline_wooksheek.write(0, 0, '需求编号', self.style)
         outline_wooksheek.write(0, 1, '功能模块', self.style)
         outline_wooksheek.write(0, 2, '功能名称', self.style)
@@ -65,6 +71,14 @@ class WriteExcel():
         testcase_wooksheek = self.wookbook.add_sheet('测试用例', cell_overwrite_ok='True')  # 测试用例
         for i in range(12):
             testcase_wooksheek.col(i).width = (15 * 367)
+            if i in [3, 4]:
+                testcase_wooksheek.col(i).width = (25 * 500)
+            if i in [4]:
+                testcase_wooksheek.col(i).width = (20 * 400)
+            if i in [5, 6, 7, 8, 9, 10, 11]:
+                testcase_wooksheek.col(i).width = (13 * 200)
+            if i in [11]:
+                testcase_wooksheek.col(i).width = (17 * 220)
         testcase_wooksheek.write(0, 0, '用例目录', self.style)
         testcase_wooksheek.write(0, 1, '用例名称', self.style)
         testcase_wooksheek.write(0, 2, '前置条件', self.style)
