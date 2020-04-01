@@ -9,6 +9,8 @@ class WriteExcel():
                          'borders:left 1,right 1,top 1,bottom 1,bottom_colour 0x3A')#未居中无背景颜色0x34
     style_center = xlwt.easyxf('pattern: pattern solid, fore_colour White;alignment:HORZ CENTER;'
                                  'borders:left 1,right 1,top 1,bottom 1,bottom_colour 0x3A')  # 无背景颜色居中
+    style_num = xlwt.easyxf('pattern: pattern solid, fore_colour White;alignment:HORZ CENTER;'
+                               'borders:left 1,right 1,top 1,bottom 1,bottom_colour 0x3A', num_format_str='#,##0.00')  # 无背景颜色居中
     def __init__(self, output_file):
         self.testcase_filename = output_file  # 生成用例的目录
         self.wookbook=self.__init_excel()
@@ -131,7 +133,7 @@ class WriteExcel():
         analysis_wooksheek.write(6, 6, 'NA', self.style)
         analysis_wooksheek.write(6, 7, 'Not Run', self.style)
         analysis_wooksheek.write(6, 8, 'Run Rate', self.style)
-        analysis_wooksheek.write(6, 9, 'Pass Ratee', self.style)
+        analysis_wooksheek.write(6, 9, 'Pass Rate', self.style)
         self.save_excel()
         return analysis_wooksheek
 
@@ -222,14 +224,14 @@ class WriteExcel():
                 if item[0] not in temp_list:
                     temp_list.append(item[0])
                     self.analysis_wooksheek.write(row,1,item[0],self.style_center)
-                    self.analysis_wooksheek.write(row,2,0,self.style_center)
-                    self.analysis_wooksheek.write(row,3,0,self.style_center)
-                    self.analysis_wooksheek.write(row,4,0,self.style_center)
-                    self.analysis_wooksheek.write(row,5,0,self.style_center)
-                    self.analysis_wooksheek.write(row,6,0,self.style_center)
-                    self.analysis_wooksheek.write(row,7,0,self.style_center)
-                    self.analysis_wooksheek.write(row,8,'0.00%',self.style_center)
-                    self.analysis_wooksheek.write(row,9,'0.00%',self.style_center)
+                    self.analysis_wooksheek.write(row,2, "=COUNTIF(测试用例!A:A,B"+str(row+1)+")", self.style_center)
+                    self.analysis_wooksheek.write(row,3, "=COUNTIFS(测试用例!A:A,B"+str(row+1)+''',测试用例!K:K,"Pass")''', self.style_center)
+                    self.analysis_wooksheek.write(row,4, "=COUNTIFS(测试用例!A:A,B"+str(row+1)+''',测试用例!K:K,"Fail")''', self.style_center)
+                    self.analysis_wooksheek.write(row,5, "=COUNTIFS(测试用例!A:A,B"+str(row+1)+''',测试用例!K:K,"Block")''', self.style_center)
+                    self.analysis_wooksheek.write(row,6, "=COUNTIFS(测试用例!A:A,B"+str(row+1)+''',测试用例!K:K,"NA")''', self.style_center)
+                    self.analysis_wooksheek.write(row,7, "=COUNTIFS(测试用例!A:A,B"+str(row+1)+''',测试用例!K:K,"Not Run")''', self.style_center)
+                    self.analysis_wooksheek.write(row,8, xlwt.Formula("(C"+str(row+1)+"-H"+str(row+1)+")/C"+str(row+1)+")"), self.style_num)
+                    self.analysis_wooksheek.write(row,9, xlwt.Formula("D"+str(row+1)+"/C"+str(row+1)), self.style_num)
                     row += 1
             else:
                 self.analysis_wooksheek.write(row, 1, '', self.style_center)
@@ -243,14 +245,14 @@ class WriteExcel():
                 self.analysis_wooksheek.write(row, 9,'0.00%',self.style_center)
                 row += 1
         self.analysis_wooksheek.write(row, 1, '总计', self.style_center)
-        self.analysis_wooksheek.write(row, 2, xlwt.Formula("SUM(C8:C"+str(row+1)+")"),self.style_center)
-        self.analysis_wooksheek.write(row, 3, xlwt.Formula("SUM(D8:D"+str(row+1)+")"),self.style_center)
-        self.analysis_wooksheek.write(row, 4, xlwt.Formula("SUM(E8:E"+str(row+1)+")"),self.style_center)
-        self.analysis_wooksheek.write(row, 5, xlwt.Formula("SUM(F8:F"+str(row+1)+")"),self.style_center)
-        self.analysis_wooksheek.write(row, 6, xlwt.Formula("SUM(G8:G"+str(row+1)+")"),self.style_center)
-        self.analysis_wooksheek.write(row, 7, xlwt.Formula("SUM(H8:H"+str(row+1)+")"),self.style_center)
-        self.analysis_wooksheek.write(row, 8,'0.00%',self.style_center)
-        self.analysis_wooksheek.write(row, 9,'0.00%',self.style_center)
+        self.analysis_wooksheek.write(row, 2, xlwt.Formula("SUM(C8:C"+str(row)+")"),self.style_center)
+        self.analysis_wooksheek.write(row, 3, xlwt.Formula("SUM(D8:D"+str(row)+")"),self.style_center)
+        self.analysis_wooksheek.write(row, 4, xlwt.Formula("SUM(E8:E"+str(row)+")"),self.style_center)
+        self.analysis_wooksheek.write(row, 5, xlwt.Formula("SUM(F8:F"+str(row)+")"),self.style_center)
+        self.analysis_wooksheek.write(row, 6, xlwt.Formula("SUM(G8:G"+str(row)+")"),self.style_center)
+        self.analysis_wooksheek.write(row, 7, xlwt.Formula("SUM(H8:H"+str(row)+")"),self.style_center)
+        self.analysis_wooksheek.write(row, 8, xlwt.Formula("(C"+str(row)+"-H"+str(row)+")/C"+str(row)+")"), self.style_num)
+        self.analysis_wooksheek.write(row, 9, xlwt.Formula("D"+str(row)+"/C"+str(row)), self.style_num)
         row += 2
         self.analysis_wooksheek.write(row, 1, '说明:')
         row+=1
