@@ -211,13 +211,17 @@ class WriteExcel():
             self.__testscope_row+=1
 
     def write_analysis_wooksheek(self):
+        """
+        写入测试分析excel
+        :return:
+        """
         row=7
         temp_list=[]
         for item in self.__temp_list:
             if len(item)>=2:
                 if item[1] not in temp_list:
                     temp_list.append(item[1])
-                    self.analysis_wooksheek.write(row,1,item[1],self.style_center)
+                    self.analysis_wooksheek.write(row,1,item[0],self.style_center)
                     self.analysis_wooksheek.write(row,2,0,self.style_center)
                     self.analysis_wooksheek.write(row,3,0,self.style_center)
                     self.analysis_wooksheek.write(row,4,0,self.style_center)
