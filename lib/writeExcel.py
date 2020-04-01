@@ -244,8 +244,8 @@ class WriteExcel():
                     self.analysis_wooksheek.write(row,5, "=COUNTIFS(测试用例!A:A,B"+str(row+1)+''',测试用例!K:K,"Block")''', self.style_center)
                     self.analysis_wooksheek.write(row,6, "=COUNTIFS(测试用例!A:A,B"+str(row+1)+''',测试用例!K:K,"NA")''', self.style_center)
                     self.analysis_wooksheek.write(row,7, "=COUNTIFS(测试用例!A:A,B"+str(row+1)+''',测试用例!K:K,"Not Run")''', self.style_center)
-                    self.analysis_wooksheek.write(row,8, xlwt.Formula("(C"+str(row+1)+"-H"+str(row+1)+")/C"+str(row+1)+")"), self.style_num)
-                    self.analysis_wooksheek.write(row,9, xlwt.Formula("D"+str(row+1)+"/C"+str(row+1)), self.style_num)
+                    self.analysis_wooksheek.write(row,8, xlwt.Formula("SUM(D"+str(row+1)+":F"+str(row+1)+")/(C"+str(row+1)+"-G"+str(row+1)+")"), self.style_num)
+                    self.analysis_wooksheek.write(row,9, xlwt.Formula("D"+str(row+1)+"/(C"+str(row+1)+"-G"+str(row+1)+")"), self.style_num)
                     row += 1
             else:
                 self.analysis_wooksheek.write(row, 1, '', self.style_center)
@@ -265,8 +265,8 @@ class WriteExcel():
         self.analysis_wooksheek.write(row, 5, xlwt.Formula("SUM(F8:F"+str(row)+")"),self.style_center)
         self.analysis_wooksheek.write(row, 6, xlwt.Formula("SUM(G8:G"+str(row)+")"),self.style_center)
         self.analysis_wooksheek.write(row, 7, xlwt.Formula("SUM(H8:H"+str(row)+")"),self.style_center)
-        self.analysis_wooksheek.write(row, 8, xlwt.Formula("(C"+str(row)+"-H"+str(row)+")/C"+str(row)+")"), self.style_num)
-        self.analysis_wooksheek.write(row, 9, xlwt.Formula("D"+str(row)+"/C"+str(row)), self.style_num)
+        self.analysis_wooksheek.write(row, 8, xlwt.Formula("SUM(D"+str(row+1)+":F"+str(row+1)+")/(C"+str(row+1)+"-G"+str(row+1)+")"), self.style_num)
+        self.analysis_wooksheek.write(row, 9, xlwt.Formula("D"+str(row+1)+"/(C"+str(row+1)+"-G"+str(row+1)+")"), self.style_num)
         row += 2
         self.analysis_wooksheek.write(row, 1, '说明:')
         row+=1
