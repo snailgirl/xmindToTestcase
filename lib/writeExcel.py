@@ -218,9 +218,9 @@ class WriteExcel():
         row=7
         temp_list=[]
         for item in self.__temp_list:
-            if len(item)>=2:
-                if item[1] not in temp_list:
-                    temp_list.append(item[1])
+            if len(item)>=1:
+                if item[0] not in temp_list:
+                    temp_list.append(item[0])
                     self.analysis_wooksheek.write(row,1,item[0],self.style_center)
                     self.analysis_wooksheek.write(row,2,0,self.style_center)
                     self.analysis_wooksheek.write(row,3,0,self.style_center)
