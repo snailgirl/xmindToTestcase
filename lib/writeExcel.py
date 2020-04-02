@@ -46,20 +46,13 @@ class WriteExcel():
                 outline_wooksheek.col(i).width = (20 * 400)
             if i in [4, 8, 9, 10, 11, 12]:
                 outline_wooksheek.col(i).width = (13 * 200)
-        outline_wooksheek.write(0, 0, '需求编号', self.style)
-        outline_wooksheek.write(0, 1, '功能模块', self.style)
-        outline_wooksheek.write(0, 2, '功能名称', self.style)
-        # outline_wooksheek.write(0, 3, '子功能名称', self.style)
-        outline_wooksheek.write(0, 3, '功能点',self.style)
-        outline_wooksheek.write(0, 4, '用例类型', self.style)
-        outline_wooksheek.write(0, 5, '检查点', self.style)
-        outline_wooksheek.write(0, 6, '用例设计', self.style)
-        outline_wooksheek.write(0, 7, '预期结果', self.style)
-        outline_wooksheek.write(0, 8, '类别', self.style)
-        outline_wooksheek.write(0, 9, '责任人', self.style)
-        outline_wooksheek.write(0, 10, '状态', self.style)
-        outline_wooksheek.write(0, 11, '更新日期', self.style)
-        outline_wooksheek.write(0, 12, '用例编号', self.style)
+        # 表头标题
+        head = ['需求编号', '功能模块', '功能名称', '功能点', '用例类型', '检查点', '用例设计', '预期结果', '类别',
+                '责任人', '状态', '更新日期', '用例编号'] #子功能名称
+        index = 0
+        for head_item in head:
+            outline_wooksheek.write(0, index, head_item, self.style)
+            index += 1
         self.save_excel()
         return outline_wooksheek
 
@@ -79,18 +72,12 @@ class WriteExcel():
                 testcase_wooksheek.col(i).width = (13 * 200)
             if i in [11]:
                 testcase_wooksheek.col(i).width = (17 * 220)
-        testcase_wooksheek.write(0, 0, '用例目录', self.style)
-        testcase_wooksheek.write(0, 1, '用例名称', self.style)
-        testcase_wooksheek.write(0, 2, '前置条件', self.style)
-        testcase_wooksheek.write(0, 3, '用例步骤', self.style)
-        testcase_wooksheek.write(0, 4, '预期结果', self.style)
-        testcase_wooksheek.write(0, 5, '用例类型', self.style)
-        testcase_wooksheek.write(0, 6, '用例状态', self.style)
-        testcase_wooksheek.write(0, 7, '用例等级', self.style)
-        testcase_wooksheek.write(0, 8, '需求ID', self.style)
-        testcase_wooksheek.write(0, 9, '创建人', self.style)
-        testcase_wooksheek.write(0, 10, '测试结果', self.style)
-        testcase_wooksheek.write(0, 11, '是否开发自测', self.style)
+        head = ['用例目录', '用例名称', '前置条件', '用例步骤', '预期结果', '用例类型', '用例状态', '用例等级', '需求ID',
+                '创建人', '测试结果', '是否开发自测']
+        index = 0
+        for head_item in head:
+            testcase_wooksheek.write(0, index, head_item, self.style)
+            index += 1
         self.save_excel()
         return testcase_wooksheek
 
@@ -102,14 +89,12 @@ class WriteExcel():
         testscope_wooksheek = self.wookbook.add_sheet('测试范围', cell_overwrite_ok='True')  # 测试范围
         for i in range(7):
             testscope_wooksheek.col(i).width = (13 * 367)
-        testscope_wooksheek.write(0, 0, '序号', self.style)
-        testscope_wooksheek.write(0, 1, '功能模块', self.style)
-        testscope_wooksheek.write(0, 2, '功能名称', self.style)
-        # testscope_wooksheek.write(0, 3, '子功能名称', self.style)
-        testscope_wooksheek.write(0, 3, '角色', self.style)
-        testscope_wooksheek.write(0, 4, '责任人', self.style)
-        testscope_wooksheek.write(0, 5, '更新日期', self.style)
-        testscope_wooksheek.write(0, 6, '备注', self.style)
+        # 表头标题
+        head = ['序号', '功能模块', '功能名称', '角色', '责任人', '更新日期', '备注'] #子功能名称
+        index = 0
+        for head_item in head:
+            testscope_wooksheek.write(0, index, head_item, self.style)
+            index += 1
         self.save_excel()
         return testscope_wooksheek
 
@@ -139,15 +124,12 @@ class WriteExcel():
         analysis_wooksheek.write_merge(4, 4,2,9, '', self.style_nocenter)
         analysis_wooksheek.write(5, 1, '环境',self.style_nocenter)
         analysis_wooksheek.write_merge(5, 5,2,9, 'SIT/UAT/生产',self.style_nocenter)
-        analysis_wooksheek.write(6, 1, '模块', self.style)
-        analysis_wooksheek.write(6, 2, 'Total', self.style)
-        analysis_wooksheek.write(6, 3, 'Pass', self.style)
-        analysis_wooksheek.write(6, 4, 'Fail', self.style)
-        analysis_wooksheek.write(6, 5, 'Block', self.style)
-        analysis_wooksheek.write(6, 6, 'NA', self.style)
-        analysis_wooksheek.write(6, 7, 'Not Run', self.style)
-        analysis_wooksheek.write(6, 8, 'Run Rate', self.style)
-        analysis_wooksheek.write(6, 9, 'Pass Rate', self.style)
+        # 第 7 行内容
+        lines = ['模块', 'Total', 'Pass', 'Fail', 'Block', 'NA', 'Not Run', 'Run Rate', 'Pass Rate'] 
+        index = 1
+        for head_item in lines:
+            analysis_wooksheek.write(6, index, head_item, self.style)
+            index += 1
         self.save_excel()
         return analysis_wooksheek
 
