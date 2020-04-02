@@ -230,15 +230,11 @@ class WriteExcel():
                     self.analysis_wooksheek.write(row,9, xlwt.Formula("D"+str(row+1)+"/(C"+str(row+1)+"-G"+str(row+1)+")"), self.style_num)
                     row += 1
             else:
-                self.analysis_wooksheek.write(row, 1, '', self.style_center)
-                self.analysis_wooksheek.write(row, 2,0,self.style_center)
-                self.analysis_wooksheek.write(row, 3,0,self.style_center)
-                self.analysis_wooksheek.write(row, 4,0,self.style_center)
-                self.analysis_wooksheek.write(row, 5,0,self.style_center)
-                self.analysis_wooksheek.write(row, 6,0,self.style_center)
-                self.analysis_wooksheek.write(row, 7,0,self.style_center)
-                self.analysis_wooksheek.write(row, 8,'0.00%',self.style_center)
-                self.analysis_wooksheek.write(row, 9,'0.00%',self.style_center)
+                lines = ['', 0, 0, 0, 0, 0, 0, '0.00%', '0.00%'] 
+                index = 1
+                for head_item in lines:
+                    self.analysis_wooksheek.write(row, index, head_item, self.style)
+                    index += 1
                 row += 1
         self.analysis_wooksheek.write(row, 1, '总计', self.style_center)
         self.analysis_wooksheek.write(row, 2, xlwt.Formula("SUM(C8:C"+str(row)+")"),self.style_center)
@@ -252,7 +248,7 @@ class WriteExcel():
         row += 2
         self.analysis_wooksheek.write(row, 1, '说明:')
         row+=1
-        self.analysis_wooksheek.write(row, 1, 'Pass-验证通过 Fail-验证未通过 Block-阻塞 NA-本期不涉及 Not Run-尚未执行')
+        self.analysis_wooksheek.write(row, 1, 'Pass-验证通过  Fail-验证未通过  Block-阻塞  NA-本期不涉及  Not Run-尚未执行')
         row+=1
         self.analysis_wooksheek.write(row, 1, 'Run Rate=(Pass+Fail+Block)/(Total-NA)')
         self.analysis_wooksheek.write(row+1, 1, 'Pass Rate=Pass/(Total-NA)')
